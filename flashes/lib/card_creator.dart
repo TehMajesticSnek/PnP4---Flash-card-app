@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
 
 class CardCreation extends StatefulWidget {
-  //allows for editing categories
   final int cardSet;
-  const CardCreation({super.key, required this.cardSet});
+  final Card? card;
+  const CardCreation({super.key, required this.cardSet, this.card});
 
   @override
   State<CardCreation> createState() => _CreateState();
@@ -14,18 +15,30 @@ class _CreateState extends State<CardCreation> {
   @override
   void initState() {
     super.initState();
+    populateFields(); // keep placement in mind for debugging
   }
 
   final TextEditingController _fTextController = TextEditingController();
   final TextEditingController _bTextController = TextEditingController();
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
+  late bool isEdit = false;
+  String titleText = "Create card set";
 
-  Future<void> addCategory() async {
+  Future<void> addCard() async {
     String fText = _fTextController.text;
     String bText = _bTextController.text;
 
-    await db.addCard(widget.cardSet, fText, bText);
+    await db.updateCard(isEdit, widget.card?.cardID, widget.cardSet, fText, bText);
     Navigator.of(context).pop();
+  }
+
+  void populateFields() {
+    if (widget.card != null) {
+      _fTextController.text = widget.card!.fText;
+      _bTextController.text = widget.card!.bText;
+      isEdit = true;
+      titleText = "Edit card";
+    }
   }
 
   @override
@@ -33,7 +46,7 @@ class _CreateState extends State<CardCreation> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 200, 200, 200),
       appBar: AppBar(
-        title: const Text('Category Creation'),
+        title: const Text(''),
         centerTitle: true,
         backgroundColor: const Color(0xFF280039),
         foregroundColor: Colors.white,
@@ -66,8 +79,8 @@ class _CreateState extends State<CardCreation> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 20),
-                      const Text(
-                        'Create a card set',
+                      Text(
+                        titleText,
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -127,13 +140,12 @@ class _CreateState extends State<CardCreation> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          addCategory();
+                          addCard();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey,
                           foregroundColor: Colors.black,
                         ),
-
                         child: const Text('Save'),
                       ),
                     ],

@@ -3,56 +3,56 @@ import 'package:flashes/card_set_creator.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flashes/card_screen.dart';
 
-class Category {
+class CardSet {
   int setID;
   String name;
 
-  Category({required this.setID, required this.name});
+  CardSet({required this.setID, required this.name});
 }
 
-class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+class SetsScreen extends StatefulWidget {
+  const SetsScreen({super.key});
 
   @override
-  State<CategoriesScreen> createState() => _CategoriesScreenState();
+  State<SetsScreen> createState() => _SetsScreenState();
 }
 
-class _CategoriesScreenState extends State<CategoriesScreen> {
-  //categories list
-  List<Category> categories = [];
+class _SetsScreenState extends State<SetsScreen> {
+  //Card set list
+  List<CardSet> sets = [];
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
   bool _loading = true;
 
-  Future<void> getCategoryList() async {
-    List<Map<String, Object?>> userCategories = await db.getCardSets();
+  Future<void> getSetList() async {
+    List<Map<String, Object?>> userSets = await db.getCardSets();
 
-    categories = [];
-    for (int i = 0; i < userCategories.length; i++) {
-      //for each in categories, make an object with the data
-      categories.add(createCategoryObject(userCategories[i]));
+    sets = [];
+    for (int i = 0; i < userSets.length; i++) {
+      //for each in sets, make an object with the data
+      sets.add(createSetObject(userSets[i]));
     }
     setState(() {
       _loading = false;
     });
   }
 
-  Category createCategoryObject(Map<String, Object?> category) {
+  CardSet createSetObject(Map<String, Object?> cardSet) {
     //object with given data
-    Category newCategory = Category(setID: category['setID'] as int, name: category['setName'] as String);
-    return newCategory;
+    CardSet newSet = CardSet(setID: cardSet['setID'] as int, name: cardSet['setName'] as String);
+    return newSet;
   }
 
   void reloadPage() {
     setState(() {
       _loading = true;
     });
-    getCategoryList();
+    getSetList();
   }
 
   @override
   void initState() {
     super.initState();
-    getCategoryList();
+    getSetList();
   }
 
   @override
@@ -132,12 +132,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           backgroundColor: const Color(0xFF280039),
           foregroundColor: Colors.white,
           elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -186,9 +180,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
               Expanded(
                 child: ListView.builder(
-                  itemCount: categories.length,
+                  itemCount: sets.length,
                   itemBuilder: (context, index) {
-                    final category = categories[index];
+                    final cardSet = sets[index];
                     return InkWell(
                       borderRadius: BorderRadius.circular(20),
                       onTap: () async {
@@ -196,7 +190,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             .push(
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    CardScreen(cardSet: category),
+                                    CardScreen(cardSet: cardSet),
                               ),
                             )
                             .then((value) => reloadPage());
@@ -215,7 +209,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              category.name,
+                              cardSet.name,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

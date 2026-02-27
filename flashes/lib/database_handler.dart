@@ -42,6 +42,40 @@ class DatabaseHandler {
     });
   }
 
+  Future<void> updateSet(
+    bool isEdit,
+    int? setID,
+    String name
+  ) async {
+    if (!isEdit) {
+      return await addSet(name);
+    }
+    await db.update(
+      'card_sets',
+      {'setName': name},
+      where: 'setID = ?',
+      whereArgs: [setID],
+    );
+  }
+
+  Future<void> updateCard(
+    bool isEdit,
+    int? cardID,
+    int setID,
+    String frontText,
+    String backText,
+  ) async {
+    if (!isEdit) {
+      return await addCard(setID, frontText, backText);
+    }
+    await db.update(
+      'cards',
+      {'frontText': frontText, 'backText': backText},
+      where: 'cardID = ?',
+      whereArgs: [cardID],
+    );
+  }
+
   Future<List<Map<String, Object?>>> getCardSets() async {
     return db.query('card_sets');
   }
