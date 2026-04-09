@@ -120,6 +120,7 @@ class _CardScreenState extends State<CardScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
+                    settings: const RouteSettings(name: '/setManageScreen'), 
                     builder: (context) =>
                         CardManageScreen(cardSet: widget.cardSet), // Change to actual location
                   ),

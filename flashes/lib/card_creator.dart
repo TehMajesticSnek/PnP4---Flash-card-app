@@ -1,3 +1,4 @@
+import 'package:flashes/card_manager.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
@@ -28,7 +29,13 @@ class _CreateState extends State<CardCreation> {
     String fText = _fTextController.text;
     String bText = _bTextController.text;
 
-    await db.updateCard(isEdit, widget.card?.cardID, widget.cardSet, fText, bText);
+    await db.updateCard(
+      isEdit,
+      widget.card?.cardID,
+      widget.cardSet,
+      fText,
+      bText,
+    );
     Navigator.of(context).pop();
   }
 
@@ -137,16 +144,44 @@ class _CreateState extends State<CardCreation> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          addCard();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
-                        ),
-                        child: const Text('Save'),
+                      const SizedBox(height: 100),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // pop until on edit page
+                                Navigator.of(context).popUntil(
+                                  ModalRoute.withName('/setManageScreen'),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.black,
+                              ),
+                              child: const Text('Cancel'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                addCard();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  171,
+                                  255,
+                                  209,
+                                ),
+                                foregroundColor: Colors.black,
+                              ),
+                              child: const Text('Save'),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

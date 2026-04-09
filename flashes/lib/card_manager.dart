@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
@@ -61,8 +59,29 @@ class _CardManageScreenState extends State<CardManageScreen> {
     return selectedCards;
   }
 
+  void queueEdit() {
+    List<Card> selectedCards = getSelectedCards();
+
+    if (selectedCards.isEmpty) {
+      return;
+    }
+    // Iterate through list, navigate to new page for each
+    for (int i = selectedCards.length; i > 0; i--) {
+      Navigator.of(context)
+          .push(
+            MaterialPageRoute(
+              builder: (context) => CardCreation(
+                cardSet: widget.cardSet!.setID,
+                card: selectedCards[i - 1],
+              ),
+            ),
+          )
+          .then((_) => reloadPage());
+    }
+  }
+
   void flipCard(Card card) {
-    // unsure whether to allow flips here or not. Maybe as a button in the corner of a card
+    // unsure whether to allow flips here or not. Maybe as a button in the corner of a card *****
     String temp = card.fText;
 
     card.fText = card.bText;
@@ -147,7 +166,9 @@ class _CardManageScreenState extends State<CardManageScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                icon: const Icon(Icons.delete_forever),
+                icon: const Icon(
+                  Icons.delete_forever,
+                ), // ***** consider folder delete
                 onPressed: () {
                   showDialog<bool>(
                     context: context,
@@ -387,6 +408,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
                 ),
                 onPressed: () {
                   // queue edit for all selected cards
+                  queueEdit();
                 },
               ),
             ],
