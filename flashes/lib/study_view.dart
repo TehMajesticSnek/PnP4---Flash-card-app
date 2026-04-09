@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
-import 'package:flashes/card_creator.dart';
 import 'package:flashes/database_handler.dart';
 
 class StudyView extends StatefulWidget {
@@ -50,7 +49,7 @@ class _StudyViewState extends State<StudyView> {
 
     card.fText = card.bText;
     card.bText = temp;
-    liteReload();
+    setState(() {});
   }
 
   void nextCard() {
@@ -59,7 +58,7 @@ class _StudyViewState extends State<StudyView> {
     } else {
       cardIndex = 0;
     }
-    liteReload();
+    setState(() {});
   }
 
   void prevCard() {
@@ -68,7 +67,7 @@ class _StudyViewState extends State<StudyView> {
     } else {
       cardIndex = cards.length - 1;
     }
-    liteReload();
+    setState(() {});
   }
 
   void reloadPage() {
@@ -76,10 +75,6 @@ class _StudyViewState extends State<StudyView> {
       _loading = true;
     });
     getCardList();
-  }
-
-  void liteReload() {
-    setState(() {});
   }
 
   @override

@@ -8,6 +8,10 @@ class CardSet {
   String name;
 
   CardSet({required this.setID, required this.name});
+
+  void setName(String name) {
+    this.name = name;
+  }
 }
 
 class SetsScreen extends StatefulWidget {
@@ -38,7 +42,10 @@ class _SetsScreenState extends State<SetsScreen> {
 
   CardSet createSetObject(Map<String, Object?> cardSet) {
     //object with given data
-    CardSet newSet = CardSet(setID: cardSet['setID'] as int, name: cardSet['setName'] as String);
+    CardSet newSet = CardSet(
+      setID: cardSet['setID'] as int,
+      name: cardSet['setName'] as String,
+    );
     return newSet;
   }
 

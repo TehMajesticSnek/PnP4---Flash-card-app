@@ -9,6 +9,7 @@ class Card {
   int setID;
   String fText;
   String bText;
+  bool isSelected = false;
 
   Card({
     required this.cardID,
@@ -63,7 +64,7 @@ class _CardScreenState extends State<CardScreen> {
 
     card.fText = card.bText;
     card.bText = temp;
-    reloadPageFlip();
+    setState(() {});
   }
 
   void reloadPage() {
@@ -71,10 +72,6 @@ class _CardScreenState extends State<CardScreen> {
       _loading = true;
     });
     getCardList();
-  }
-
-  void reloadPageFlip() {
-    setState(() {});
   }
 
   @override

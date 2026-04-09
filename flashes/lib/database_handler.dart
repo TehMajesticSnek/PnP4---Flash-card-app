@@ -1,3 +1,4 @@
+import 'package:flashes/card_screen.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -34,6 +35,11 @@ class DatabaseHandler {
     print(db.query('card_sets'));
   }
 
+  Future<void> deleteSet(int setID) async {
+    await db.delete('cards', where: 'cardSet = ?', whereArgs: [setID]);
+    await db.delete('card_sets', where: 'setID = ?', whereArgs: [setID]);
+  }
+
   Future<void> addCard(int setID, String frontText, String backText) async {
     await db.insert('cards', {
       'cardSet': setID,
@@ -42,11 +48,14 @@ class DatabaseHandler {
     });
   }
 
-  Future<void> updateSet(
-    bool isEdit,
-    int? setID,
-    String name
-  ) async {
+  Future<void> deleteCards(List<Card> cards) async {
+    for (Card card in cards)
+    {
+      await db.delete('cards', where: 'cardID = ?', whereArgs: [card.cardID]);
+    }
+  }
+
+  Future<void> updateSet(bool isEdit, int? setID, String name) async {
     if (!isEdit) {
       return await addSet(name);
     }
