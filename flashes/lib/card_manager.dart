@@ -271,7 +271,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
                       onTap: () {
                         setState(() {
                           cards[index - 1].isSelected =
-                              !cards[index - 1].isSelected;
+                            !cards[index - 1].isSelected;
                         });
                       },
                       child: Stack(

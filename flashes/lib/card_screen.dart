@@ -1,4 +1,5 @@
 import 'package:flashes/card_manager.dart';
+import 'package:flashes/quiz_screen.dart';
 import 'package:flashes/study_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flashes/card_sets.dart';
@@ -186,16 +187,6 @@ class _CardScreenState extends State<CardScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              StudyView(cardSet: widget.cardSet!),
-                        ),
-                      )
-                      .then((value) => reloadPage());
-                },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 7),
                   backgroundColor: const Color.fromARGB(255, 197, 197, 197),
@@ -216,18 +207,18 @@ class _CardScreenState extends State<CardScreen> {
                   'Study',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              StudyView(cardSet: widget.cardSet!),
-                        ),
-                      )
-                      .then((value) => reloadPage());
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          StudyView(cardSet: widget.cardSet!),
+                      ),
+                    )
+                    .then((value) => reloadPage());
                 },
+              ),
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 7),
                   backgroundColor: const Color.fromARGB(255, 197, 197, 197),
@@ -248,18 +239,18 @@ class _CardScreenState extends State<CardScreen> {
                   'Quiz',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              StudyView(cardSet: widget.cardSet!),
-                        ),
-                      )
-                      .then((value) => reloadPage());
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          QuizScreen(cardSet: widget.cardSet!),
+                      ),
+                    )
+                    .then((value) => reloadPage());
                 },
+              ),
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 7),
                   backgroundColor: const Color.fromARGB(255, 197, 197, 197),
@@ -280,6 +271,16 @@ class _CardScreenState extends State<CardScreen> {
                   'Learn',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
+                onPressed: () {
+                  Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          StudyView(cardSet: widget.cardSet!),
+                      ),
+                    )
+                    .then((value) => reloadPage());
+                },
               ),
             ],
           )

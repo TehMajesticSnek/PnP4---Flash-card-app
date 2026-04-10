@@ -1,4 +1,3 @@
-import 'package:flashes/card_manager.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
