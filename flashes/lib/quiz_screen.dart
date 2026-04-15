@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/database_handler.dart';
+import 'package:flashes/quiz_score.dart';
 import 'dart:math';
 
 class Question {
+  late int questionNumber;
   String questionBody;
   String cAnswer;
   List<(String, bool)> choices = [];
@@ -72,6 +74,7 @@ class _QuizScreenState extends State<QuizScreen> {
         chosenIndexes.add(choiceIndex);
         questions[i].choices.add((questions[choiceIndex].cAnswer, false));
       }
+      // add correct answer to choice list
       questions[i].choices.insert(Random().nextInt(numChoices + 1), (
         questions[i].cAnswer,
         false,
@@ -187,9 +190,11 @@ class _QuizScreenState extends State<QuizScreen> {
               child: const Text('Submit'),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                // nav to score screen *****
-                // handle correct answers in correct answer screen
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => QuizScore(questions: questions),
+                  ),
+                );
               },
             ),
           ],
@@ -282,6 +287,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   itemCount: questions[questionIndex].choices.length,
                   itemBuilder: (context, index) {
                     final question = questions[questionIndex];
+                    question.questionNumber = questionIndex + 1;
                     return InkWell(
                       borderRadius: BorderRadius.circular(20),
                       onTap: () async {
@@ -303,9 +309,12 @@ class _QuizScreenState extends State<QuizScreen> {
                       },
                       child: Row(
                         children: [
-                          Checkbox(
-                            value: question.choices[index].$2,
-                            onChanged: (_) {},
+                          IgnorePointer(
+                            ignoring: true,
+                            child: Checkbox(
+                              value: question.choices[index].$2,
+                              onChanged: (_) {},
+                            ),
                           ),
                           Text(
                             style: TextStyle(color: Colors.white),

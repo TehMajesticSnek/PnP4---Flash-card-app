@@ -68,15 +68,15 @@ class _CardManageScreenState extends State<CardManageScreen> {
     // Iterate through list, navigate to new page for each
     for (int i = selectedCards.length; i > 0; i--) {
       Navigator.of(context)
-          .push(
-            MaterialPageRoute(
-              builder: (context) => CardCreation(
-                cardSet: widget.cardSet!.setID,
-                card: selectedCards[i - 1],
-              ),
-            ),
-          )
-          .then((_) => reloadPage());
+      .push(
+        MaterialPageRoute(
+          builder: (context) => CardCreation(
+            cardSet: widget.cardSet!.setID,
+            card: selectedCards[i - 1],
+          ),
+        ),
+      )
+      .then((_) => reloadPage());
     }
   }
 

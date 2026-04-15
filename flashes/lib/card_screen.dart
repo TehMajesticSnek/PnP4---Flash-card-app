@@ -119,15 +119,18 @@ class _CardScreenState extends State<CardScreen> {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    settings: const RouteSettings(name: '/setManageScreen'), 
-                    builder: (context) =>
-                        CardManageScreen(cardSet: widget.cardSet), // Change to actual location
-                  ),
-                ).then((value) => reloadPage());
-              } 
-            )
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        settings: const RouteSettings(name: '/setManageScreen'),
+                        builder: (context) => CardManageScreen(
+                          cardSet: widget.cardSet,
+                        ), // Change to actual location
+                      ),
+                    )
+                    .then((value) => reloadPage());
+              },
+            ),
           ],
         ),
         body: Padding(
@@ -144,8 +147,8 @@ class _CardScreenState extends State<CardScreen> {
                       onTap: () async {
                         flipCard(card);
                       },
-                      child: AspectRatio (
-                        aspectRatio: 5/3,
+                      child: AspectRatio(
+                        aspectRatio: 5 / 3,
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           padding: const EdgeInsets.symmetric(
@@ -169,11 +172,11 @@ class _CardScreenState extends State<CardScreen> {
                                   softWrap: true,
                                   textAlign: TextAlign.center,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
-                      )
+                      ),
                     );
                   },
                 ),
@@ -183,7 +186,7 @@ class _CardScreenState extends State<CardScreen> {
         ),
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.all(12),
-          child: Row (
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
@@ -208,14 +211,17 @@ class _CardScreenState extends State<CardScreen> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
+                  if (cards.isEmpty) {
+                    return;
+                  }
                   Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          StudyView(cardSet: widget.cardSet!),
-                      ),
-                    )
-                    .then((value) => reloadPage());
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              StudyView(cardSet: widget.cardSet!),
+                        ),
+                      )
+                      .then((value) => reloadPage());
                 },
               ),
               ElevatedButton(
@@ -240,14 +246,17 @@ class _CardScreenState extends State<CardScreen> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
+                  if (cards.isEmpty) {
+                    return;
+                  }
                   Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          QuizScreen(cardSet: widget.cardSet!),
-                      ),
-                    )
-                    .then((value) => reloadPage());
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              QuizScreen(cardSet: widget.cardSet!),
+                        ),
+                      )
+                      .then((value) => reloadPage());
                 },
               ),
               ElevatedButton(
@@ -272,18 +281,21 @@ class _CardScreenState extends State<CardScreen> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
+                  if (cards.isEmpty) {
+                    return;
+                  }
                   Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          StudyView(cardSet: widget.cardSet!),
-                      ),
-                    )
-                    .then((value) => reloadPage());
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              StudyView(cardSet: widget.cardSet!),
+                        ),
+                      )
+                      .then((value) => reloadPage());
                 },
               ),
             ],
-          )
+          ),
         ),
       );
     }
