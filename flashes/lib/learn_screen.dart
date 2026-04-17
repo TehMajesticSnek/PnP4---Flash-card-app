@@ -20,7 +20,6 @@ class _LearnScreenState extends State<LearnScreen> {
   bool _loading = true;
   bool checkState = false; // false is show card, true shows answer
   TextEditingController learnController = TextEditingController();
-  FocusNode focusNode = FocusNode();
 
   Future<void> getCardList() async {
     List<Map<String, Object?>> userCards = await db.getCards(
@@ -82,10 +81,10 @@ class _LearnScreenState extends State<LearnScreen> {
 
     KeyboardVisibilityController keyVis = KeyboardVisibilityController();
     keyVis.onChange.listen((bool visible) {
-    if (!visible) {
-      FocusManager.instance.primaryFocus?.unfocus();
-    }
-});
+      if (!visible) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      }
+    });
   }
 
   @override
@@ -164,7 +163,8 @@ class _LearnScreenState extends State<LearnScreen> {
               SizedBox(height: 30),
               TextFormField(
                 controller: learnController,
-                focusNode: focusNode,
+                onTap: () {
+                },
                 style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(

@@ -3,6 +3,7 @@ import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/card_creator.dart';
 import 'package:flashes/database_handler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class CardManageScreen extends StatefulWidget {
   final CardSet? cardSet;
@@ -18,7 +19,6 @@ class _CardManageScreenState extends State<CardManageScreen> {
   late final TextEditingController setNameController = TextEditingController(
     text: widget.cardSet!.name,
   );
-  FocusNode focusNode = FocusNode();
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
   bool _loading = true;
 
@@ -101,6 +101,13 @@ class _CardManageScreenState extends State<CardManageScreen> {
   void initState() {
     super.initState();
     getCardList();
+
+    KeyboardVisibilityController keyVis = KeyboardVisibilityController();
+    keyVis.onChange.listen((bool visible) {
+      if (!visible) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      }
+    });
   }
 
   @override
@@ -127,7 +134,6 @@ class _CardManageScreenState extends State<CardManageScreen> {
         backgroundColor: const Color(0xFF280039),
         appBar: AppBar(
           title: TextFormField(
-            focusNode: focusNode,
             controller: setNameController,
             onTapOutside: (PointerDownEvent event) {
               FocusManager.instance.primaryFocus?.unfocus();

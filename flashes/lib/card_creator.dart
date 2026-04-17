@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class CardCreation extends StatefulWidget {
   final int cardSet;
@@ -16,6 +17,13 @@ class _CreateState extends State<CardCreation> {
   void initState() {
     super.initState();
     populateFields(); // keep placement in mind for debugging
+
+    KeyboardVisibilityController keyVis = KeyboardVisibilityController();
+    keyVis.onChange.listen((bool visible) {
+      if (!visible) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      }
+    });
   }
 
   final TextEditingController _fTextController = TextEditingController();

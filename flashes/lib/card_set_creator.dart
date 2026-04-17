@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flashes/database_handler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class CardSetCreation extends StatefulWidget {
   //allows for editing categories
@@ -13,6 +14,13 @@ class _CreateSetState extends State<CardSetCreation> {
   @override
   void initState() {
     super.initState();
+
+    KeyboardVisibilityController keyVis = KeyboardVisibilityController();
+    keyVis.onChange.listen((bool visible) {
+      if (!visible) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      }
+    });
   }
 
   final TextEditingController _categoryNameController = TextEditingController();
@@ -100,7 +108,6 @@ class _CreateSetState extends State<CardSetCreation> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
@@ -110,7 +117,6 @@ class _CreateSetState extends State<CardSetCreation> {
                           backgroundColor: Colors.grey,
                           foregroundColor: Colors.black,
                         ),
-
                         child: const Text('Save'),
                       ),
                     ],
