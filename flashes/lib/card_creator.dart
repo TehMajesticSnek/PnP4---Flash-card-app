@@ -52,11 +52,8 @@ class _CreateState extends State<CardCreation> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) {
-          Navigator.of(context).popUntil(
-            ModalRoute.withName('/setManageScreen'),
-          );
-        }
+        if (didPop) return;
+        Navigator.of(context).popUntil(ModalRoute.withName('/setManageScreen'));
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 200, 200, 200),
@@ -70,9 +67,9 @@ class _CreateState extends State<CardCreation> {
             icon: Icon(Icons.arrow_back),
             tooltip: 'Back Icon',
             onPressed: () {
-              Navigator.of(context).popUntil(
-                ModalRoute.withName('/setManageScreen'),
-              );
+              Navigator.of(
+                context,
+              ).popUntil(ModalRoute.withName('/setManageScreen'));
             },
           ),
         ),
@@ -87,7 +84,10 @@ class _CreateState extends State<CardCreation> {
                   height: 500,
                   decoration: BoxDecoration(
                     color: const Color(0xFFFF9B71),
-                    border: Border.all(color: const Color(0xFF280039), width: 3),
+                    border: Border.all(
+                      color: const Color(0xFF280039),
+                      width: 3,
+                    ),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
@@ -107,6 +107,9 @@ class _CreateState extends State<CardCreation> {
                         const SizedBox(height: 30),
                         TextFormField(
                           controller: _fTextController,
+                          onTapOutside: (PointerDownEvent event) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          },
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             filled: true,
@@ -201,7 +204,7 @@ class _CreateState extends State<CardCreation> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

@@ -74,6 +74,9 @@ class _CreateSetState extends State<CardSetCreation> {
                       const SizedBox(height: 30),
                       TextFormField(
                         controller: _categoryNameController,
+                        onTapOutside: (PointerDownEvent event) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           filled: true,

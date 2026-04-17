@@ -18,6 +18,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
   late final TextEditingController setNameController = TextEditingController(
     text: widget.cardSet!.name,
   );
+  FocusNode focusNode = FocusNode();
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
   bool _loading = true;
 
@@ -68,15 +69,15 @@ class _CardManageScreenState extends State<CardManageScreen> {
     // Iterate through list, navigate to new page for each
     for (int i = selectedCards.length; i > 0; i--) {
       Navigator.of(context)
-      .push(
-        MaterialPageRoute(
-          builder: (context) => CardCreation(
-            cardSet: widget.cardSet!.setID,
-            card: selectedCards[i - 1],
-          ),
-        ),
-      )
-      .then((_) => reloadPage());
+          .push(
+            MaterialPageRoute(
+              builder: (context) => CardCreation(
+                cardSet: widget.cardSet!.setID,
+                card: selectedCards[i - 1],
+              ),
+            ),
+          )
+          .then((_) => reloadPage());
     }
   }
 
@@ -126,7 +127,11 @@ class _CardManageScreenState extends State<CardManageScreen> {
         backgroundColor: const Color(0xFF280039),
         appBar: AppBar(
           title: TextFormField(
+            focusNode: focusNode,
             controller: setNameController,
+            onTapOutside: (PointerDownEvent event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             style: TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -271,7 +276,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
                       onTap: () {
                         setState(() {
                           cards[index - 1].isSelected =
-                            !cards[index - 1].isSelected;
+                              !cards[index - 1].isSelected;
                         });
                       },
                       child: Stack(

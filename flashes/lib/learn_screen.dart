@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class LearnScreen extends StatefulWidget {
   final CardSet? cardSet;
@@ -18,7 +19,8 @@ class _LearnScreenState extends State<LearnScreen> {
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
   bool _loading = true;
   bool checkState = false; // false is show card, true shows answer
-  final TextEditingController learnController = TextEditingController();
+  TextEditingController learnController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   Future<void> getCardList() async {
     List<Map<String, Object?>> userCards = await db.getCards(
@@ -59,8 +61,11 @@ class _LearnScreenState extends State<LearnScreen> {
     } else {
       cardIndex = 0;
     }
-    checkState = false;
-    setState(() {});
+
+    setState(() {
+      checkState = false;
+      learnController.text = '';
+    });
   }
 
   void reloadPage() {
@@ -74,6 +79,13 @@ class _LearnScreenState extends State<LearnScreen> {
   void initState() {
     super.initState();
     getCardList();
+
+    KeyboardVisibilityController keyVis = KeyboardVisibilityController();
+    keyVis.onChange.listen((bool visible) {
+    if (!visible) {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+});
   }
 
   @override
@@ -152,6 +164,7 @@ class _LearnScreenState extends State<LearnScreen> {
               SizedBox(height: 30),
               TextFormField(
                 controller: learnController,
+                focusNode: focusNode,
                 style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -181,31 +194,6 @@ class _LearnScreenState extends State<LearnScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: () async {
-                  check(cards[cardIndex]);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
-                    ),
-                  ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.45,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
-                ),
-                child: const Text(
-                  'Check',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-              ElevatedButton(
                 onPressed: () {
                   nextCard();
                 },
@@ -230,13 +218,137 @@ class _LearnScreenState extends State<LearnScreen> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  check(cards[cardIndex]);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 7),
+                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      width: 3,
+                    ),
+                  ),
+                  minimumSize: Size(
+                    MediaQuery.of(context).size.width * 0.45,
+                    MediaQuery.of(context).size.height * 0.10,
+                  ),
+                ),
+                child: const Text(
+                  'Check',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
             ],
           ),
         ),
       );
     } else {
-      // Check screen *****
-      return Scaffold();
+      return Scaffold(
+        backgroundColor: const Color(0xFF280039),
+        appBar: AppBar(
+          title: Text(widget.cardSet!.name),
+          centerTitle: true,
+          backgroundColor: const Color(0xFF280039),
+          foregroundColor: Colors.white,
+          elevation: 40,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 70.0),
+              InkWell(
+                borderRadius: BorderRadius.circular(20),
+                child: AspectRatio(
+                  aspectRatio: 5 / 3,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            cards[cardIndex].bText,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 45),
+              Text(
+                'You answered:\n',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                learnController.text,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          padding: EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  nextCard();
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 7),
+                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      width: 3,
+                    ),
+                  ),
+                  minimumSize: Size(
+                    MediaQuery.of(context).size.width * 0.45,
+                    MediaQuery.of(context).size.height * 0.10,
+                  ),
+                ),
+                child: const Text(
+                  'Continue',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 }
