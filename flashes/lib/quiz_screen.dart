@@ -206,182 +206,200 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: const Text('Quiz'),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: const Text('Quiz'),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       );
     } else {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: Text(widget.cardSet!.name),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              quitConfirm(context);
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
           ),
-          actions: [
-            Text("${questionIndex + 1} / ${questions.length}"),
-            SizedBox(width: 20),
-          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 70.0),
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                child: AspectRatio(
-                  aspectRatio: 5 / 3,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            questions[questionIndex].questionBody,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30.0),
-              Expanded(
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: questions[questionIndex].choices.length,
-                  itemBuilder: (context, index) {
-                    final question = questions[questionIndex];
-                    question.questionNumber = questionIndex + 1;
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () async {
-                        // validates if Q is correct
-                        question.isCorrect =
-                            (question.choices[index].$1 == question.cAnswer);
-
-                        // deselects all choices
-                        for (int i = 0; i < question.choices.length; i++) {
-                          question.choices[i] = (question.choices[i].$1, false);
-                        }
-                        // selects chosen choice
-                        question.choices[index] = (
-                          question.choices[index].$1,
-                          true,
-                        );
-                        // refresh
-                        setState(() {});
-                      },
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: Text(widget.cardSet!.name),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                quitConfirm(context);
+              },
+            ),
+            actions: [
+              Text("${questionIndex + 1} / ${questions.length}"),
+              SizedBox(width: 20),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 70.0),
+                InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  child: AspectRatio(
+                    aspectRatio: 5 / 3,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Row(
                         children: [
-                          IgnorePointer(
-                            ignoring: true,
-                            child: Checkbox(
-                              value: question.choices[index].$2,
-                              onChanged: (_) {},
+                          Expanded(
+                            child: Text(
+                              questions[questionIndex].questionBody,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          Text(
-                            style: TextStyle(color: Colors.white),
-                            question.choices[index].$1,
                           ),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 30.0),
+                Expanded(
+                  child: ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: questions[questionIndex].choices.length,
+                    itemBuilder: (context, index) {
+                      final question = questions[questionIndex];
+                      question.questionNumber = questionIndex + 1;
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () async {
+                          // validates if Q is correct
+                          question.isCorrect = (question.choices[index].$1 == question.cAnswer);
+
+                          // deselects all choices
+                          for (int i = 0; i < question.choices.length; i++) {
+                            question.choices[i] = (question.choices[i].$1, false);
+                          }
+                          // selects chosen choice
+                          question.choices[index] = (
+                            question.choices[index].$1,
+                            true,
+                          );
+                          // refresh
+                          setState(() {});
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xe5ffd61f),
+                            borderRadius: BorderRadius.circular(20)
+                          ),
+                          child: Row(
+                            children: [
+                              IgnorePointer(
+                                ignoring: true,
+                                child: Checkbox(
+                                  side: const BorderSide(color: Colors.black, width: 2),
+                                  value: question.choices[index].$2,
+                                  onChanged: (_) {},
+                                ),
+                              ),
+                              Text(
+                                style: TextStyle(color: Colors.white),
+                                question.choices[index].$1,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: 3);
+                    }
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  prevQuestion();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.all(12),
+            color: const Color(0xbf259086),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    prevQuestion();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
                 ),
-              ),
-              FilledButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+                FilledButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.45,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.45,
-                    MediaQuery.of(context).size.height * 0.10,
+                  onPressed: () {
+                    nextQuestion();
+                  },
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                onPressed: () {
-                  nextQuestion();
-                },
-                child: Text(
-                  "Continue",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

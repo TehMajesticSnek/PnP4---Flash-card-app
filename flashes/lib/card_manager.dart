@@ -113,316 +113,321 @@ class _CardManageScreenState extends State<CardManageScreen> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: const Text('Cards'),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: const Text('Cards'),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       );
     } else {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: TextFormField(
-            controller: setNameController,
-            onTapOutside: (PointerDownEvent event) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            style: TextStyle(color: Colors.white),
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  width: 3,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  width: 3,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            onChanged: (value) {
-              // Update the studyset title
-              widget.cardSet?.setName(value);
-              db.updateSet(true, widget.cardSet!.setID, value);
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
           ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.delete_forever,
-                ), // ***** consider folder delete
-                onPressed: () {
-                  showDialog<bool>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Delete card set'),
-                        content: Text(
-                          'Are you sure you would like to delete this card set? This cannot be undone.',
-                        ),
-                        actionsAlignment: MainAxisAlignment.spaceBetween,
-                        actions: [
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          TextButton(
-                            child: const Text(
-                              'Delete',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            onPressed: () async {
-                              await db.deleteSet(widget.cardSet!.setID);
-                              int count = 0;
-                              Navigator.of(
-                                context,
-                              ).popUntil((_) => count++ >= 3);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 6.0),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cards.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return AspectRatio(
-                        aspectRatio: 5 / 3,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 3),
-                            borderRadius: BorderRadius.circular(23),
-                            shape: BoxShape.rectangle,
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: TextFormField(
+              controller: setNameController,
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              onChanged: (value) {
+                // Update the studyset title
+                widget.cardSet?.setName(value);
+                db.updateSet(true, widget.cardSet!.setID, value);
+              },
+            ),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.delete_forever,
+                  ), // ***** consider folder delete
+                  onPressed: () {
+                    showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Delete card set'),
+                          content: Text(
+                            'Are you sure you would like to delete this card set? This cannot be undone.',
                           ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .push(
-                                    MaterialPageRoute(
-                                      builder: (context) => CardCreation(
-                                        cardSet: widget.cardSet!.setID,
-                                      ),
-                                    ),
-                                  )
-                                  .then((value) => reloadPage());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 7),
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: const BorderSide(
-                                  color: Color(0xFF3B0054),
-                                  width: 3,
-                                ),
-                              ),
-                              minimumSize: Size(
-                                MediaQuery.of(context).size.width * 0.9,
-                                MediaQuery.of(context).size.height * 0.05,
-                              ),
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          actions: [
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
-                            child: const Text(
-                              'Add Card\n+',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                            TextButton(
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(color: Colors.red),
                               ),
-                              textAlign: TextAlign.center,
+                              onPressed: () async {
+                                await db.deleteSet(widget.cardSet!.setID);
+                                int count = 0;
+                                Navigator.of(
+                                  context,
+                                ).popUntil((_) => count++ >= 3);
+                              },
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                    final card = cards[index - 1];
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () {
-                        setState(() {
-                          cards[index - 1].isSelected =
-                              !cards[index - 1].isSelected;
-                        });
+                          ],
+                        );
                       },
-                      child: Stack(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 5 / 3,
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      card.fText,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      softWrap: true,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 0,
-                            child: IgnorePointer(
-                              ignoring: true,
-                              child: Checkbox(
-                                value: cards[index - 1].isSelected,
-                                onChanged: (bool? value) {},
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     );
                   },
                 ),
               ),
             ],
           ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.delete_sweep),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
-                    ),
-                  ),
-                  iconSize: 36,
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
-                ),
-                onPressed: () {
-                  if (getSelectedCards().isEmpty) {
-                    return;
-                  }
-                  showDialog<bool>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Delete cards'),
-                        content: Text(
-                          'Are you sure you would like to delete these cards? This cannot be undone.',
-                        ),
-                        actionsAlignment: MainAxisAlignment.spaceBetween,
-                        actions: [
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          TextButton(
-                            child: const Text(
-                              'Delete',
-                              style: TextStyle(color: Colors.red),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 6.0),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cards.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return AspectRatio(
+                          aspectRatio: 5 / 3,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 3),
+                              borderRadius: BorderRadius.circular(23),
+                              shape: BoxShape.rectangle,
                             ),
-                            onPressed: () async {
-                              await db.deleteCards(getSelectedCards());
-                              Navigator.of(context).pop();
-                            },
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .push(
+                                      MaterialPageRoute(
+                                        builder: (context) => CardCreation(
+                                          cardSet: widget.cardSet!.setID,
+                                        ),
+                                      ),
+                                    )
+                                    .then((value) => reloadPage());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(vertical: 7),
+                                backgroundColor: Color(0xffffd61f),
+                                foregroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  side: const BorderSide(
+                                    color: Colors.black,
+                                    width: 3,
+                                  ),
+                                ),
+                                minimumSize: Size(
+                                  MediaQuery.of(context).size.width * 0.9,
+                                  MediaQuery.of(context).size.height * 0.05,
+                                ),
+                              ),
+                              child: const Text(
+                                'Add Card\n+',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
-                        ],
+                        );
+                      }
+                      final card = cards[index - 1];
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {
+                          setState(() {
+                            cards[index - 1].isSelected = !cards[index - 1].isSelected;
+                          });
+                        },
+                        child: Stack(
+                          children: [
+                            AspectRatio(
+                              aspectRatio: 5 / 3,
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        card.fText,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        softWrap: true,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 8,
+                              right: 0,
+                              child: IgnorePointer(
+                                ignoring: true,
+                                child: Checkbox(
+                                  value: cards[index - 1].isSelected,
+                                  onChanged: (bool? value) {},
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     },
-                  ).then((_) => reloadPage());
-                },
-              ),
-
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.all(12),
+            color: Color(0xbf259086),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.delete_sweep),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    iconSize: 36,
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.45,
-                    MediaQuery.of(context).size.height * 0.10,
+                  onPressed: () {
+                    if (getSelectedCards().isEmpty) {
+                      return;
+                    }
+                    showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Delete cards'),
+                          content: Text(
+                            'Are you sure you would like to delete these cards? This cannot be undone.',
+                          ),
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          actions: [
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            TextButton(
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () async {
+                                await db.deleteCards(getSelectedCards());
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ).then((_) => reloadPage());
+                  },
+                ),
+
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.45,
+                      MediaQuery.of(context).size.height * 0.10,
+                    ),
                   ),
+                  child: const Text(
+                    'Edit Cards',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    // queue edit for all selected cards
+                    queueEdit();
+                  },
                 ),
-                child: const Text(
-                  'Edit Cards',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  // queue edit for all selected cards
-                  queueEdit();
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

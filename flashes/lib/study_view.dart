@@ -86,157 +86,162 @@ class _StudyViewState extends State<StudyView> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: const Text('Cards'),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: const Text('Cards'),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       );
     } else {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: Text(widget.cardSet!.name),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 100.0),
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                onTap: () {
-                  flipCard(cards[cardIndex]);
-                },
-                child: AspectRatio(
-                  aspectRatio: 5 / 3,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: Text(widget.cardSet!.name),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 100.0),
+                InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    flipCard(cards[cardIndex]);
+                  },
+                  child: AspectRatio(
+                    aspectRatio: 5 / 3,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              cards[cardIndex].fText,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.all(12),
+            color: const Color(0xbf259086),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    prevCard();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            cards[cardIndex].fText,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  prevCard();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+                ElevatedButton(
+                  onPressed: () async {
+                    flipCard(cards[cardIndex]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
+                  child: const Text(
+                    'Flip Card',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  flipCard(cards[cardIndex]);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: () {
+                    nextCard();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
                 ),
-                child: const Text(
-                  'Flip Card',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.arrow_forward),
-                onPressed: () {
-                  nextCard();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
-                    ),
-                  ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
