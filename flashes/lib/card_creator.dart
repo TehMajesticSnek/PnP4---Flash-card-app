@@ -30,11 +30,18 @@ class _CreateState extends State<CardCreation> {
   final TextEditingController _bTextController = TextEditingController();
   final DatabaseHandler db = DatabaseHandler.databaseInstance!;
   late bool isEdit = false;
-  String titleText = "Create card set";
+  String titleText = "Create card";
 
   Future<void> addCard() async {
     String fText = _fTextController.text;
     String bText = _bTextController.text;
+
+    if (fText == '' || bText == '') {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Enter both text fields')));
+      return;
+    }
 
     await db.updateCard(
       isEdit,
@@ -61,117 +68,118 @@ class _CreateState extends State<CardCreation> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).clearSnackBars();
         Navigator.of(context).popUntil(ModalRoute.withName('/setManageScreen'));
       },
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 200, 200, 200),
-        appBar: AppBar(
-          title: const Text(''),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            tooltip: 'Back Icon',
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).popUntil(ModalRoute.withName('/setManageScreen'));
-            },
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
-        body: CustomScrollView(
-          physics: ClampingScrollPhysics(),
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: Container(
-                  width: 300,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFF9B71),
-                    border: Border.all(
-                      color: const Color(0xFF280039),
-                      width: 3,
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              tooltip: 'Back Icon',
+              onPressed: () {
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                ScaffoldMessenger.of(context).clearSnackBars();
+                Navigator.of(context).popUntil(ModalRoute.withName('/setManageScreen'));
+              },
+            ),
+          ),
+          body: CustomScrollView(
+            physics: ClampingScrollPhysics(),
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: Container(
+                    width: 300,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: const Color(0xef938ead),
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 20),
-                        Text(
-                          titleText,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF280039),
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        TextFormField(
-                          controller: _fTextController,
-                          onTapOutside: (PointerDownEvent event) {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            filled: true,
-                            fillColor: Colors.white,
-                            labelText: 'Front Text',
-                            hintText: 'Enter text',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFF3B0054),
-                                width: 3,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 117, 20, 158),
-                                width: 3,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            titleText,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 30),
-                        TextFormField(
-                          controller: _bTextController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            filled: true,
-                            fillColor: Colors.white,
-                            labelText: 'Back Text',
-                            hintText: 'Enter text',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xFF3B0054),
-                                width: 3,
+                          const SizedBox(height: 60),
+                          TextFormField(
+                            controller: _fTextController,
+                            onTapOutside: (PointerDownEvent event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Front Text (term)',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 117, 20, 158),
-                                width: 3,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 100),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: ElevatedButton(
+                          const SizedBox(height: 30),
+                          TextFormField(
+                            controller: _bTextController,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Back Text (definition)',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
                                 onPressed: () {
                                   // pop until on edit page
                                   Navigator.of(context).popUntil(
@@ -179,38 +187,46 @@ class _CreateState extends State<CardCreation> {
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
+                                  backgroundColor: Color(0xbf259086),
+                                  foregroundColor: Colors.white,
+                                  minimumSize: (Size(100, 40)),
                                 ),
-                                child: const Text('Cancel'),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: ElevatedButton(
+                              ElevatedButton(
                                 onPressed: () {
                                   addCard();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color.fromARGB(
-                                    255,
-                                    171,
-                                    255,
-                                    209,
-                                  ),
-                                  foregroundColor: Colors.black,
+                                  backgroundColor: const Color(0xff028ac1),
+                                  foregroundColor: Colors.white,
+                                  minimumSize: (Size(100, 40)),
                                 ),
-                                child: const Text('Save'),
+                                child: const Text(
+                                  'Save',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          SizedBox(height: 50),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

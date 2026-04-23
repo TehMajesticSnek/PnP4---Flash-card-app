@@ -90,262 +90,280 @@ class _LearnScreenState extends State<LearnScreen> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: const Text('Learn'),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: const Text('Learn'),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       );
     } else if (!checkState) {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: Text(widget.cardSet!.name),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 70.0),
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                child: AspectRatio(
-                  aspectRatio: 5 / 3,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: Text(widget.cardSet!.name),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 70.0),
+                InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  child: AspectRatio(
+                    aspectRatio: 5 / 3,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              cards[cardIndex].fText,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 30),
+                TextFormField(
+                  controller: learnController,
+                  onTap: () {
+                  },
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xbf000000),
+                    hintText: 'Enter definition',
+                    hintStyle: TextStyle(color: Colors.white70),
+                    border: const OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.white,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.all(12),
+            color: const Color(0xbf259086),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    nextCard();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            cards[cardIndex].fText,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 30),
-              TextFormField(
-                controller: learnController,
-                onTap: () {
-                },
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      width: 3,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      width: 3,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  nextCard();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
+                ElevatedButton(
+                  onPressed: () {
+                    check(cards[cardIndex]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.45,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.25,
-                    MediaQuery.of(context).size.height * 0.10,
+                  child: const Text(
+                    'Check',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                child: const Text(
-                  'Skip',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  check(cards[cardIndex]);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
-                    ),
-                  ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.45,
-                    MediaQuery.of(context).size.height * 0.10,
-                  ),
-                ),
-                child: const Text(
-                  'Check',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
     } else {
-      return Scaffold(
-        backgroundColor: const Color(0xFF280039),
-        appBar: AppBar(
-          title: Text(widget.cardSet!.name),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF280039),
-          foregroundColor: Colors.white,
-          elevation: 40,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 70.0),
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                child: AspectRatio(
-                  aspectRatio: 5 / 3,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+        child: Scaffold(
+          backgroundColor: const Color(0x40280039),
+          appBar: AppBar(
+            title: Text(widget.cardSet!.name),
+            centerTitle: true,
+            backgroundColor: const Color(0xbf000000),
+            foregroundColor: Colors.white,
+            elevation: 40,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 70.0),
+                InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  child: AspectRatio(
+                    aspectRatio: 5 / 3,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              cards[cardIndex].bText,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 45),
+                Text(
+                  'You answered:\n',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  learnController.text,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.all(12),
+            color: const Color(0xbf259086),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    nextCard();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 7),
+                    backgroundColor: const Color(0xff028ac1),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            cards[cardIndex].bText,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.45,
+                      MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 45),
-              Text(
-                'You answered:\n',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                learnController.text,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  nextCard();
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  backgroundColor: const Color.fromARGB(255, 197, 197, 197),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      width: 3,
-                    ),
-                  ),
-                  minimumSize: Size(
-                    MediaQuery.of(context).size.width * 0.45,
-                    MediaQuery.of(context).size.height * 0.10,
+                  child: const Text(
+                    'Continue',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                child: const Text(
-                  'Continue',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
