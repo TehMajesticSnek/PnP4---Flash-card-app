@@ -323,7 +323,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xe5ffd61f),
+                            color: Color(0xef938ead),
                             borderRadius: BorderRadius.circular(20)
                           ),
                           child: Row(
@@ -331,6 +331,8 @@ class _QuizScreenState extends State<QuizScreen> {
                               IgnorePointer(
                                 ignoring: true,
                                 child: Checkbox(
+                                  checkColor: Colors.black,
+                                  activeColor: Color(0xe5ffd61f),
                                   side: const BorderSide(color: Colors.black, width: 2),
                                   value: question.choices[index].$2,
                                   onChanged: (_) {},

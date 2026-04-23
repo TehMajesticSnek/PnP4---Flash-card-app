@@ -132,8 +132,12 @@ class _CardScreenState extends State<CardScreen> {
               },
             ),
             actions: [
-              IconButton(
+              IconButton.filled(
                 icon: const Icon(Icons.edit),
+                style: IconButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white
+                ),
                 onPressed: () {
                   Navigator.of(context)
                     .push(
