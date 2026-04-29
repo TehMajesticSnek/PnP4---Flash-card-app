@@ -67,9 +67,10 @@ class _SetsScreenState extends State<SetsScreen> {
     if (_loading) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -100,13 +101,12 @@ class _SetsScreenState extends State<SetsScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context)
-                        .push(
-                          MaterialPageRoute(
-                            builder: (context) => CardSetCreation(),
-                          ),
-                        )
-                        .then((value) => reloadPage()
-                      );
+                          .push(
+                            MaterialPageRoute(
+                              builder: (context) => CardSetCreation(),
+                            ),
+                          )
+                          .then((value) => reloadPage());
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 7),
@@ -114,10 +114,7 @@ class _SetsScreenState extends State<SetsScreen> {
                       foregroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 3,
-                        ),
+                        side: const BorderSide(color: Colors.black, width: 3),
                       ),
                       minimumSize: Size(
                         MediaQuery.of(context).size.width * 0.9,
@@ -126,15 +123,15 @@ class _SetsScreenState extends State<SetsScreen> {
                     ),
                     child: const Text(
                       'Create Card Set',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                  Center(child: CircularProgressIndicator(
-                    color: Colors.white,
-                  )
-                ),
+                Center(child: CircularProgressIndicator(color: Colors.white)),
               ],
             ),
           ),
@@ -143,9 +140,10 @@ class _SetsScreenState extends State<SetsScreen> {
     } else {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -157,7 +155,7 @@ class _SetsScreenState extends State<SetsScreen> {
             foregroundColor: Colors.white,
             elevation: 40,
           ),
-          body:  Padding(
+          body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
@@ -183,10 +181,7 @@ class _SetsScreenState extends State<SetsScreen> {
                       foregroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 3,
-                        ),
+                        side: const BorderSide(color: Colors.black, width: 3),
                       ),
                       minimumSize: Size(
                         MediaQuery.of(context).size.width * 0.9,
@@ -195,7 +190,10 @@ class _SetsScreenState extends State<SetsScreen> {
                     ),
                     child: const Text(
                       'Create Card Set',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

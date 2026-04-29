@@ -196,7 +196,7 @@ class _StudyViewState extends State<StudyView> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.width * 0.20,
                       MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
@@ -213,12 +213,12 @@ class _StudyViewState extends State<StudyView> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.width * 0.35,
                       MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),
                   child: const Text(
-                    'Flip Card',
+                    'Flip',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -235,7 +235,7 @@ class _StudyViewState extends State<StudyView> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.25,
+                      MediaQuery.of(context).size.width * 0.20,
                       MediaQuery.of(context).size.height * 0.10,
                     ),
                   ),

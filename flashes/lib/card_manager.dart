@@ -115,9 +115,10 @@ class _CardManageScreenState extends State<CardManageScreen> {
     if (_loading) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -140,9 +141,10 @@ class _CardManageScreenState extends State<CardManageScreen> {
     } else {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -155,17 +157,11 @@ class _CardManageScreenState extends State<CardManageScreen> {
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.white,
-                    width: 3,
-                  ),
+                  borderSide: const BorderSide(color: Colors.white, width: 3),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.white,
-                    width: 3,
-                  ),
+                  borderSide: const BorderSide(color: Colors.white, width: 3),
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
@@ -197,20 +193,29 @@ class _CardManageScreenState extends State<CardManageScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Delete card set'),
+                          title: const Text(
+                            'Delete card set',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: const Color(0xff938ead),
                           content: Text(
                             'Are you sure you would like to delete this card set? This cannot be undone.',
+                            style: TextStyle(color: Colors.white),
                           ),
                           actionsAlignment: MainAxisAlignment.spaceBetween,
                           actions: [
                             TextButton(
-                              child: const Text('Cancel'),
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xe5ffd61f),
+                              ),
                               onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Cancel'),
                             ),
                             TextButton(
-                              child: const Text(
-                                'Delete',
-                                style: TextStyle(color: Colors.red),
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xe5ffd61f),
+                                foregroundColor: Colors.red,
                               ),
                               onPressed: () async {
                                 await db.deleteSet(widget.cardSet!.setID);
@@ -219,6 +224,9 @@ class _CardManageScreenState extends State<CardManageScreen> {
                                   context,
                                 ).popUntil((_) => count++ >= 3);
                               },
+                              child: const Text(
+                                'Delete',
+                              ),
                             ),
                           ],
                         );
@@ -293,7 +301,8 @@ class _CardManageScreenState extends State<CardManageScreen> {
                         borderRadius: BorderRadius.circular(20),
                         onTap: () {
                           setState(() {
-                            cards[index - 1].isSelected = !cards[index - 1].isSelected;
+                            cards[index - 1].isSelected =
+                                !cards[index - 1].isSelected;
                           });
                         },
                         child: Stack(
@@ -377,25 +386,37 @@ class _CardManageScreenState extends State<CardManageScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Delete cards'),
+                          title: const Text(
+                            'Delete cards',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: const Color(0xff938ead),
                           content: Text(
                             'Are you sure you would like to delete these cards? This cannot be undone.',
+                            style: TextStyle(color: Colors.white),
                           ),
                           actionsAlignment: MainAxisAlignment.spaceBetween,
                           actions: [
                             TextButton(
-                              child: const Text('Cancel'),
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xe5ffd61f),
+                              ),
                               onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Cancel'),
                             ),
                             TextButton(
-                              child: const Text(
-                                'Delete',
-                                style: TextStyle(color: Colors.red),
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xe5ffd61f),
+                                foregroundColor: Colors.red
                               ),
                               onPressed: () async {
                                 await db.deleteCards(getSelectedCards());
                                 Navigator.of(context).pop();
                               },
+                              child: const Text(
+                                'Delete',
+                              ),
                             ),
                           ],
                         );

@@ -136,14 +136,20 @@ class _QuizScreenState extends State<QuizScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm quit'),
+          title: const Text(
+            'Confirm quit', 
+            textAlign: TextAlign.center, 
+            style: TextStyle(color: Colors.white)
+          ),
+          backgroundColor: Color(0xff938ead),
           content: const Text(
             'Are you sure you want to leave the quiz? You won\'t be able to continue',
+            style: TextStyle(color: Colors.white)
           ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+                backgroundColor: Color(0xe5ffd61f),
               ),
               child: const Text('Cancel'),
               onPressed: () {
@@ -152,7 +158,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+                backgroundColor: Color(0xe5ffd61f),
               ),
               child: const Text('Quit'),
               onPressed: () {
@@ -171,12 +177,20 @@ class _QuizScreenState extends State<QuizScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm submission'),
-          content: const Text('Are you sure you want to submit your answers?'),
+          title: const Text(
+            'Confirm submission', 
+            textAlign: TextAlign.center, 
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Color(0xff938ead),
+          content: const Text(
+            'Are you sure you want to submit your answers?',
+            style: TextStyle(color: Colors.white),
+          ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+                backgroundColor: Color(0xe5ffd61f),
               ),
               child: const Text('Cancel'),
               onPressed: () {
@@ -185,7 +199,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+                backgroundColor: Color(0xe5ffd61f),
               ),
               child: const Text('Submit'),
               onPressed: () {
