@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flashes/main.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_manager.dart';
 import 'package:flashes/study_view.dart';
 import 'package:flashes/quiz_screen.dart';
 import 'package:flashes/learn_screen.dart';
+
 
 class Card {
   int cardID;
@@ -183,7 +184,7 @@ class _CardScreenState extends State<CardScreen> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(
+                                  child: AutoSizeText(
                                     card.fText,
                                     style: const TextStyle(
                                       color: Colors.black,

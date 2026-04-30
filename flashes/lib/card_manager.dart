@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Card;
+import 'package:flashes/main.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/card_creator.dart';
@@ -207,7 +207,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
                           actions: [
                             TextButton(
                               style: TextButton.styleFrom(
-                                backgroundColor: Color(0xe5ffd61f),
+                                backgroundColor: Color(0xe5ffd61f), 
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                               child: const Text('Cancel'),
@@ -259,14 +259,14 @@ class _CardManageScreenState extends State<CardManageScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context)
-                                    .push(
-                                      MaterialPageRoute(
-                                        builder: (context) => CardCreation(
-                                          cardSet: widget.cardSet!.setID,
-                                        ),
+                                  .push(
+                                    MaterialPageRoute(
+                                      builder: (context) => CardCreation(
+                                        cardSet: widget.cardSet!.setID,
                                       ),
-                                    )
-                                    .then((value) => reloadPage());
+                                    ),
+                                  )
+                                  .then((value) => reloadPage());
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(vertical: 7),
@@ -322,7 +322,7 @@ class _CardManageScreenState extends State<CardManageScreen> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: Text(
+                                      child: AutoSizeText(
                                         card.fText,
                                         style: const TextStyle(
                                           color: Colors.black,

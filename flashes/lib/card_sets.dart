@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flashes/main.dart';
 import 'package:flashes/card_set_creator.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flashes/card_screen.dart';
+
 
 class CardSet {
   int setID;
@@ -165,6 +166,7 @@ class _SetsScreenState extends State<SetsScreen> {
                     borderRadius: BorderRadius.circular(23),
                     shape: BoxShape.rectangle,
                   ),
+                  height: 60,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context)
@@ -221,6 +223,7 @@ class _SetsScreenState extends State<SetsScreen> {
                             horizontal: 16,
                             vertical: 12,
                           ),
+                          height: 60,
                           decoration: BoxDecoration(
                             color: const Color(0xff028ac1),
                             borderRadius: BorderRadius.circular(20),
@@ -228,12 +231,17 @@ class _SetsScreenState extends State<SetsScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                cardSet.name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              Expanded(
+                                child:AutoSizeText(
+                                  cardSet.name,
+                                  softWrap: true,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],

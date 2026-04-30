@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flashes/main.dart';
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flashes/quiz_score.dart';
@@ -137,29 +137,25 @@ class _QuizScreenState extends State<QuizScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text(
-            'Confirm quit', 
-            textAlign: TextAlign.center, 
-            style: TextStyle(color: Colors.white)
+            'Confirm quit',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color(0xff938ead),
           content: const Text(
             'Are you sure you want to leave the quiz? You won\'t be able to continue',
-            style: TextStyle(color: Colors.white)
+            style: TextStyle(color: Colors.white),
           ),
           actions: <Widget>[
             TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xe5ffd61f),
-              ),
+              style: TextButton.styleFrom(backgroundColor: Color(0xe5ffd61f)),
               child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xe5ffd61f),
-              ),
+              style: TextButton.styleFrom(backgroundColor: Color(0xe5ffd61f)),
               child: const Text('Quit'),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -178,8 +174,8 @@ class _QuizScreenState extends State<QuizScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text(
-            'Confirm submission', 
-            textAlign: TextAlign.center, 
+            'Confirm submission',
+            textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color(0xff938ead),
@@ -189,18 +185,14 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           actions: <Widget>[
             TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xe5ffd61f),
-              ),
+              style: TextButton.styleFrom(backgroundColor: Color(0xe5ffd61f)),
               child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xe5ffd61f),
-              ),
+              style: TextButton.styleFrom(backgroundColor: Color(0xe5ffd61f)),
               child: const Text('Submit'),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -222,9 +214,10 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_loading) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -247,9 +240,10 @@ class _QuizScreenState extends State<QuizScreen> {
     } else {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -293,7 +287,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
+                            child: AutoSizeText(
                               questions[questionIndex].questionBody,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -321,11 +315,15 @@ class _QuizScreenState extends State<QuizScreen> {
                         borderRadius: BorderRadius.circular(20),
                         onTap: () async {
                           // validates if Q is correct
-                          question.isCorrect = (question.choices[index].$1 == question.cAnswer);
+                          question.isCorrect =
+                              (question.choices[index].$1 == question.cAnswer);
 
                           // deselects all choices
                           for (int i = 0; i < question.choices.length; i++) {
-                            question.choices[i] = (question.choices[i].$1, false);
+                            question.choices[i] = (
+                              question.choices[i].$1,
+                              false,
+                            );
                           }
                           // selects chosen choice
                           question.choices[index] = (
@@ -338,7 +336,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Color(0xef938ead),
-                            borderRadius: BorderRadius.circular(20)
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             children: [
@@ -347,14 +345,20 @@ class _QuizScreenState extends State<QuizScreen> {
                                 child: Checkbox(
                                   checkColor: Colors.black,
                                   activeColor: Color(0xe5ffd61f),
-                                  side: const BorderSide(color: Colors.black, width: 2),
+                                  side: const BorderSide(
+                                    color: Colors.black,
+                                    width: 2,
+                                  ),
                                   value: question.choices[index].$2,
                                   onChanged: (_) {},
                                 ),
                               ),
-                              Text(
-                                style: TextStyle(color: Colors.white),
-                                question.choices[index].$1,
+                              Expanded(
+                                child:Text(
+                                  question.choices[index].$1,
+                                  style: TextStyle(color: Colors.white),
+                                  overflow: TextOverflow.ellipsis
+                                ),
                               ),
                             ],
                           ),
@@ -363,7 +367,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(height: 3);
-                    }
+                    },
                   ),
                 ),
               ],

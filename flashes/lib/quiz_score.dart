@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flashes/main.dart';
 import 'package:flashes/quiz_screen.dart';
 
 class QuizScore extends StatefulWidget {
@@ -47,9 +47,10 @@ class _QuizScoreState extends State<QuizScore> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-        alignment: AlignmentGeometry.topLeft,
-        fit: BoxFit.cover
+        image: DecorationImage(
+          image: AssetImage('assets/ComplicatedPattern2.jpg'),
+          alignment: AlignmentGeometry.topLeft,
+          fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
@@ -105,9 +106,8 @@ class _QuizScoreState extends State<QuizScore> {
                         child: Text(
                           'Question ${question.questionNumber}:\n${question.questionBody}\n\n$chosenAnswer\nCorrect answer: ${question.cAnswer}',
                           style: TextStyle(color: Colors.black),
-                        )
-                      )
-                        
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -118,7 +118,7 @@ class _QuizScoreState extends State<QuizScore> {
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.all(12),
           color: const Color(0xbf259086),
-          child: Row (
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(

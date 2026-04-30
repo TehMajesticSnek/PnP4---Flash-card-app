@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Card;
+import 'package:flashes/main.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
@@ -88,9 +88,10 @@ class _StudyViewState extends State<StudyView> {
     if (_loading) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -113,9 +114,10 @@ class _StudyViewState extends State<StudyView> {
     } else {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -158,7 +160,7 @@ class _StudyViewState extends State<StudyView> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
+                            child: AutoSizeText(
                               cards[cardIndex].fText,
                               style: const TextStyle(
                                 color: Colors.black,

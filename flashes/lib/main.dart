@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/database_handler.dart';
 
+export 'package:flutter/material.dart';
+export 'package:flutter/services.dart';
+export 'package:auto_size_text/auto_size_text.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //DatabaseHandler.debug();

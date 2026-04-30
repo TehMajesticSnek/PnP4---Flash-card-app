@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Card;
+import 'package:flashes/main.dart' hide Card;
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -127,9 +127,6 @@ class _CreateState extends State<CardCreation> {
                           const SizedBox(height: 60),
                           TextFormField(
                             controller: _fTextController,
-                            onTapOutside: (PointerDownEvent event) {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                            },
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               filled: true,

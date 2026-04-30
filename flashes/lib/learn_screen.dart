@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Card;
+import 'package:flashes/main.dart' hide Card;
 import 'package:flashes/card_sets.dart';
 import 'package:flashes/card_screen.dart';
 import 'package:flashes/database_handler.dart';
@@ -92,9 +92,10 @@ class _LearnScreenState extends State<LearnScreen> {
     if (_loading) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -117,9 +118,10 @@ class _LearnScreenState extends State<LearnScreen> {
     } else if (!checkState) {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -159,7 +161,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
+                            child: AutoSizeText(
                               cards[cardIndex].fText,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -178,8 +180,7 @@ class _LearnScreenState extends State<LearnScreen> {
                 SizedBox(height: 30),
                 TextFormField(
                   controller: learnController,
-                  onTap: () {
-                  },
+                  onTap: () {},
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -263,9 +264,10 @@ class _LearnScreenState extends State<LearnScreen> {
     } else {
       return Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/ComplicatedPattern2.jpg'),
-          alignment: AlignmentGeometry.topLeft,
-          fit: BoxFit.cover
+          image: DecorationImage(
+            image: AssetImage('assets/ComplicatedPattern2.jpg'),
+            alignment: AlignmentGeometry.topLeft,
+            fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
@@ -305,7 +307,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
+                            child: AutoSizeText(
                               cards[cardIndex].bText,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -327,11 +329,16 @@ class _LearnScreenState extends State<LearnScreen> {
                   style: const TextStyle(color: Colors.white, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
-                Text(
-                  learnController.text,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
-                  textAlign: TextAlign.center,
+                Expanded(
+                  child: Text(
+                    learnController.text,
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                    textAlign: TextAlign.center,
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
                 ),
+                )
+                
               ],
             ),
           ),

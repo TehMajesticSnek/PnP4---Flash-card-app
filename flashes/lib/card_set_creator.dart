@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flashes/main.dart';
 import 'package:flashes/database_handler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -89,9 +89,6 @@ class _CreateSetState extends State<CardSetCreation> {
                         const SizedBox(height: 60),
                         TextFormField(
                           controller: _categoryNameController,
-                          onTapOutside: (PointerDownEvent event) {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             filled: true,
@@ -146,8 +143,8 @@ class _CreateSetState extends State<CardSetCreation> {
                               child: const Text(
                                 'Save',
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
