@@ -38,6 +38,7 @@ dependencies:
   path: ^1.9.1
   flutter_keyboard_visibility: ^6.0.0
   auto_size_text: ^3.0.0
+  confetti: ^0.8.0
 
 dev_dependencies:
   flutter_test:
